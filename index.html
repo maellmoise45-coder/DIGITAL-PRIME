@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DIGITAL-PRIME — Espace de travail en ligne</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth-wrap">
+    <div class="card auth-card">
+      <div class="brand">
+        <img src="images/logo-h.svg" alt="DIGITAL-PRIME" class="logo" style="width:48px;height:48px;border-radius:12px;background:none;padding:0">
+        <div>
+          <h1>DIGITAL-PRIME</h1>
+          <div class="muted small">Travaillez, partagez et appelez vos amis en ligne.</div>
+        </div>
+      </div>
+      <div class="tabs">
+        <div class="tab active" data-tab="login">Connexion</div>
+        <div class="tab" data-tab="register">Créer un compte</div>
+      </div>
+
+      <form id="form-login" class="form-grid">
+        <div><label>Nom d'utilisateur</label><input name="username" autocomplete="username" required></div>
+        <div><label>Mot de passe</label><input name="password" type="password" autocomplete="current-password" required></div>
+        <button class="btn primary" type="submit">Se connecter</button>
+        <div id="msg-login" class="msg"></div>
+      </form>
+
+      <form id="form-register" class="form-grid hidden">
+        <div><label>Nom d'utilisateur</label><input name="username" autocomplete="username" required pattern="[a-zA-Z0-9_\-]{3,30}" placeholder="ex: alex_01"></div>
+        <div><label>Nom affiché</label><input name="display_name" placeholder="ex: Alex"></div>
+        <div><label>Mot de passe</label><input name="password" type="password" autocomplete="new-password" required minlength="4"></div>
+        <div>
+          <label>Votre couleur</label>
+          <div class="color-row">
+            <input type="color" name="color" value="#3b82f6" id="reg-color">
+            <span class="muted small">Choisissez la couleur de votre espace — modifiable plus tard.</span>
+          </div>
+        </div>
+        <button class="btn primary" type="submit">Créer mon compte</button>
+        <div id="msg-register" class="msg"></div>
+      </form>
+    </div>
+  </div>
+  <script src="js/api.js"></script>
+  <script>
+    // redirect if already logged in
+    API.get('api/auth.php?action=me').then(()=>location.href='app.html').catch(()=>{});
+    const tabs = document.querySelectorAll('.tab');
+    const forms = { login: document.getElementById('form-login'), register: document.getElementById('form-register') };
+    tabs.forEach(t => t.addEventListener('click', () => {
+      tabs.forEach(x=>x.classList.remove('active')); t.classList.add('active');
+      Object.values(forms).forEach(f=>f.classList.add('hidden'));
+      forms[t.dataset.tab].classList.remove('hidden');
+    }));
+    document.getElementById('reg-color').addEventListener('input', e => setAccent(e.target.value));
+    document.getElementById('form-register').addEventListener('input', e => { if(e.target.name==='color') setAccent(e.target.value); });
+
+    forms.login.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = document.getElementById('msg-login'); msg.textContent=''; msg.className='msg';
+      const fd = new FormData(forms.login);
+      try {
+        const r = await API.post('api/auth.php?action=login', { username: fd.get('username'), password: fd.get('password') });
+        setAccent(r.user.color); location.href = 'app.html';
+      } catch(err){ msg.textContent = err.message; msg.className='msg err'; }
+    });
+    forms.register.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = document.getElementById('msg-register'); msg.textContent=''; msg.className='msg';
+      const fd = new FormData(forms.register);
+      try {
+        const r = await API.post('api/auth.php?action=register', {
+          username: fd.get('username'), display_name: fd.get('display_name'), password: fd.get('password'), color: fd.get('color')
+        });
+        setAccent(r.user.color); location.href = 'app.html';
+      } catch(err){ msg.textContent = err.message; msg.className='msg err'; }
+    });
+  </script>
+</body>
+</html>
