@@ -1,0 +1,15 @@
+# Données locales / runtime
+data/*.sqlite
+data/*.sqlite-wal
+data/*.sqlite-shm
+uploads/*
+!uploads/.htaccess
+data/*
+!data/.htaccess
+
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
