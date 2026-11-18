@@ -1,18 +1,20 @@
 {
-  "name": "DIGITAL-PRIME",
+  "name": "DIGITAL-PRIME — Espace de travail",
   "short_name": "DIGITAL-PRIME",
-  "description": "Espace de travail collaboratif avec appels audio et vidéo.",
+  "description": "Travaillez, partagez et appelez vos amis en ligne —audio, vidéo et notifications.",
+  "id": "./",
   "start_url": "./app.html",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "window-controls-overlay"],
+  "orientation": "any",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",
+  "categories": ["productivity", "social", "communication"],
   "icons": [
-    {
-      "src": "images/logo-h.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
+    { "src": "images/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "images/icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "images/logo-h.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ]
 }
