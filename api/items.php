@@ -75,8 +75,8 @@ if ($method === 'POST' && $action === 'update_text') {
         $stmt->execute([$item['project_id'], $user['id'], 'text', $title, $content, 'text/plain', $item['id']]);
         respond(['ok' => true, 'id' => (int)$stmt->fetchColumn(), 'new_version' => true]);
     } else {
-        $stmt = db()->prepare("UPDATE items SET title=?, content=?, user_id=?, updated_at=NOW() WHERE id=?");
-        $stmt->execute([$title, $content, $user['id'], $id]);
+        $stmt = db()->prepare("UPDATE items SET title=?, content=?, updated_at=NOW() WHERE id=?");
+        $stmt->execute([$title, $content, $id]);
         respond(['ok' => true, 'id' => $id]);
     }
 }

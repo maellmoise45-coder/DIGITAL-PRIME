@@ -60,12 +60,13 @@ if ($action === 'profile' && $method === 'POST') {
     $color = sanitize_color((string)($in['color'] ?? $user['color']));
     if ($display === '') $display = $user['username'];
     $display = mb_substr($display, 0, 50);
+    $newPassword = (string)($in['password'] ?? '');
+    if ($newPassword !== '' && strlen($newPassword) < 4) fail('Mot de passe trop court.');
     $stmt = db()->prepare('UPDATE users SET display_name = ?, color = ? WHERE id = ?');
     $stmt->execute([$display, $color, $user['id']]);
-    if (!empty($in['password'])) {
-        if (strlen((string)$in['password']) < 4) fail('Mot de passe trop court.');
+    if ($newPassword !== '') {
         $stmt = db()->prepare('UPDATE users SET password_hash = ? WHERE id = ?');
-        $stmt->execute([password_hash((string)$in['password'], PASSWORD_DEFAULT), $user['id']]);
+        $stmt->execute([password_hash($newPassword, PASSWORD_DEFAULT), $user['id']]);
     }
     respond(['ok' => true, 'user' => require_login()]);
 }

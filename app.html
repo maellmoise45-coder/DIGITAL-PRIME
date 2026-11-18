@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DIGITAL-PRIME — Mon espace</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="images/logo-h.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="images/logo-h.svg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
   <header class="topbar">
@@ -16,6 +21,8 @@
       </div>
       <div class="row">
         <span id="me-pill" class="pill-user"></span>
+        <button class="btn sm ghost" id="btn-status">🟢 Disponible</button>
+        <button class="btn sm ghost" id="btn-notify">🔔 Alertes</button>
         <button class="btn sm ghost" id="btn-profile">Profil & couleur</button>
         <button class="btn sm" id="btn-logout">Déconnexion</button>
       </div>
@@ -36,6 +43,7 @@
           <li>Modifiez un texte puis « Renvoyer » pour créer une nouvelle version.</li>
           <li>Commentez chaque élément pour échanger.</li>
           <li>Votre couleur personnalise l'interface.</li>
+          <li>Choisissez votre statut : vos amis voient qui est disponible ou concentré.</li>
         </ul>
       </div>
     </aside>
@@ -59,6 +67,14 @@
             <div class="section-title">Membres</div>
             <div id="pv-members" class="members"></div>
           </div>
+        </div>
+
+        <div class="card section" id="team-card">
+          <div class="spread wrap">
+            <h3 style="margin:0">Équipe en direct</h3>
+            <span class="muted small">Statuts mis à jour en temps réel</span>
+          </div>
+          <div id="team-live" class="section"></div>
         </div>
 
         <div class="card section">

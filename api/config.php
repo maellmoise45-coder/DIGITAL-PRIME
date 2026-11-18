@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
 
+if (PHP_VERSION_ID >= 70300) {
+    session_set_cookie_params(['lifetime' => 0, 'path' => '/', 'secure' => true, 'httponly' => true, 'samesite' => 'Lax']);
+} else {
+    session_set_cookie_params(0, '/; SameSite=Lax', '', true, true);
+}
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 

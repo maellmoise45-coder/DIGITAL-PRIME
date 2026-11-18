@@ -111,3 +111,25 @@ hr.sep { border:none; border-top:1px solid var(--border); margin:1rem 0; }
 .video-tile.me video { transform: scaleX(-1); }
 .video-controls { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.6rem; align-items:center; }
 .dot { width:10px; height:10px; border-radius:50%; background:#22c55e; display:inline-block; }
+
+/* Incoming / outgoing calls */
+.btn.mini { padding:.15rem .38rem; font-size:.8rem; line-height:1; border-radius:8px; margin-left:.15rem; }
+.call-btns { display:inline-flex; gap:.15rem; margin-left:.3rem; }
+.call-incoming { text-align:center; padding:.6rem .4rem .3rem; }
+.call-avatar { width:74px; height:74px; border-radius:50%; display:grid; place-items:center; color:#fff; font-size:1.7rem; font-weight:800; margin:0 auto .8rem; box-shadow:0 0 0 6px rgba(255,255,255,.06); }
+.call-name { font-size:1.4rem; font-weight:700; margin:.2rem 0 .1rem; }
+.call-pulse { font-size:2.4rem; text-align:center; margin:1rem 0 .4rem; animation:dp-pulse 1.2s ease-in-out infinite; }
+@keyframes dp-pulse { 0%,100% { transform:scale(1); opacity:1; } 50% { transform:scale(1.12); opacity:.7; } }
+
+/* Team live presence + focus mode */
+.team-row { display:flex; align-items:center; gap:.6rem; padding:.45rem .2rem; border-bottom:1px solid var(--border); }
+.team-row:last-child { border-bottom:none; }
+.team-info { display:flex; flex-direction:column; flex:1; min-width:0; }
+.team-info strong { font-size:.92rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.status-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:.5rem; margin:.6rem 0; }
+.status-option { display:flex; align-items:center; gap:.5rem; padding:.65rem; border:1px solid var(--border); border-radius:12px; background:#0b1220; color:var(--text); cursor:pointer; font-size:.9rem; text-align:left; }
+.status-option:hover { border-color:var(--accent); }
+.status-option.selected { border-color:var(--accent); background:rgba(99,102,241,.12); }
+.status-icon { font-size:1.15rem; }
+#btn-status[data-status="focus"] { border-color:var(--accent); color:var(--accent); }
+#btn-status[data-status="away"] { opacity:.65; }

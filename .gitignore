@@ -1,4 +1,7 @@
 # Données locales / runtime
+api/config.local.php
+api/vapid.local.php
+b64.txt
 data/*.sqlite
 data/*.sqlite-wal
 data/*.sqlite-shm
